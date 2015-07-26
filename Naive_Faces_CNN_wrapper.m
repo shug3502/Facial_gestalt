@@ -1,4 +1,4 @@
-function Naive_Faces_CNN_wrapper(varargin)
+function Naive_Faces_CNN_wrapper(entries_of_interest,imdb,varargin)
 % Based on Part 4 of the VGG CNN practical
 %Make sure in correct directory
 %setup ;
@@ -6,19 +6,20 @@ function Naive_Faces_CNN_wrapper(varargin)
 % -------------------------------------------------------------------------
 % Part 4.1: prepare the data
 % -------------------------------------------------------------------------
-if nargin<1
+if isempty(entries_of_interest)
 % Load dataset
 fprintf('Loading entries and dataset\n');
 [imdb.images.data, imdb.images.label, imdb.images.id] = crop_faces;
 rr = rand(1,size(imdb.images.data,3));
 imdb.images.set = 1*(rr<0.8)+2*(rr>=0.8);
-elseif nargin ==1
+elseif isempty(imdb)
     % Load dataset
 fprintf('Loading dataset\n');
 [imdb.images.data, imdb.images.label, imdb.images.id] = crop_faces(entries_of_interest) ;
 rr = rand(1,size(imdb.images.data,3));
 imdb.images.set = 1*(rr<0.8)+2*(rr>=0.8);
 else
+    fprintf('Data already loaded\n');
 end
 % % Visualize some of the data 
 figure(1) ; clf ; colormap gray ;
